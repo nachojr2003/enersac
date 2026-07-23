@@ -61,7 +61,7 @@
   function cerrar() {
     lightbox.classList.remove('abierto');
     document.body.style.overflow = '';
-    lbImg.src = '';
+    lbImg.removeAttribute('src');
     if (origen) { origen.focus(); origen = null; }
   }
 

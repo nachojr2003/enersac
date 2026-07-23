@@ -41,16 +41,34 @@
   font-style: normal;
   font-display: swap;
 }
+/* Tipografía principal de marca (Manual de Marca, sección 2.5) */
+@font-face {
+  font-family: 'Recepts';
+  src: url('../fonts/recepts.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Tipografía de titulares del manual (portadas y secciones) */
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('../fonts/bebas-neue.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ---------- Tokens ---------- */
 :root {
-  /* Color — un solo acento (lima), derivado del logo */
-  --verde-selva: #0B1F12;
-  --verde-selva-2: #10291A;
-  --verde-enersac: #157A3C;
-  --lima: #8DC63F;
-  --lima-hover: #9ED455;
-  --lima-press: #7CB332;
+  /* Paleta oficial (Manual de Marca, sección 2.4):
+     #01662A verde principal · #D3E20F amarillo lima · #95B925 verde claro · #2B4C1A verde profundo */
+  --verde-selva: #1B300F;
+  --verde-selva-2: #2B4C1A;
+  --verde-enersac: #01662A;
+  --verde-claro: #95B925;
+  --lima: #D3E20F;
+  --lima-hover: #E3EF3F;
+  --lima-press: #B9C70D;
   --concreto: #EDECE7;
   --concreto-2: #E3E1D8;
   --blanco: #F9F9F6;
@@ -58,10 +76,12 @@
   --piedra: #535D56;
   --linea: #D6D4CA;
   --linea-dark: rgba(255, 255, 255, 0.12);
-  --texto-dark: #E9EFE6;
-  --texto-dark-2: #A9B8A6;
+  --texto-dark: #EAF0E4;
+  --texto-dark-2: #A9BC97;
 
-  /* Tipografía */
+  /* Tipografía: Recepts (marca) · Bebas Neue (titulares) · Archivo (UI) · Manrope (texto) · Plex Mono (datos) */
+  --f-marca: 'Recepts', 'Archivo', system-ui, sans-serif;
+  --f-titulos: 'Bebas Neue', 'Archivo', system-ui, sans-serif;
   --f-display: 'Archivo', system-ui, sans-serif;
   --f-body: 'Manrope', system-ui, sans-serif;
   --f-mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -80,7 +100,7 @@
   /* Motivo de rayos del logo (abanico desde abajo, CSS puro) */
   --rayos: repeating-conic-gradient(
     from -52deg at 50% 130%,
-    rgba(141, 198, 63, 0.10) 0deg 0.8deg,
+    rgba(211, 226, 15, 0.09) 0deg 0.8deg,
     transparent 0.8deg 7deg
   );
 }
@@ -138,11 +158,18 @@ p { max-width: 65ch; }
 }
 
 .titulo-seccion {
-  font-size: clamp(1.9rem, 4vw, 2.9rem);
-  font-weight: 800;
-  font-stretch: 110%;
+  font-family: var(--f-titulos);
+  font-size: clamp(2.4rem, 4.6vw, 3.5rem);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.005em;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+}
+.marca {
+  font-family: var(--f-marca);
+  font-weight: 400;
+  font-size: 0.86em;
+  letter-spacing: 0.04em;
 }
 .intro-seccion {
   margin-top: 1rem;
@@ -207,31 +234,16 @@ p { max-width: 65ch; }
 .nav__marca {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
   text-decoration: none;
 }
-.nav__isotipo { height: 40px; width: auto; }
-.nav__nombre {
-  font-family: var(--f-display);
-  font-weight: 800;
-  font-stretch: 115%;
-  font-size: 1.15rem;
-  letter-spacing: 0.06em;
-  color: var(--verde-enersac);
+.nav__lockup {
+  height: 38px;
+  width: auto;
+  transition: filter 0.25s ease;
 }
-.nav__nombre small {
-  display: block;
-  font-family: var(--f-mono);
-  font-weight: 500;
-  font-size: 0.5rem;
-  letter-spacing: 0.14em;
-  color: var(--piedra);
-  text-transform: uppercase;
-}
-.nav--oscura .nav__nombre { color: #fff; }
-.nav--oscura .nav__nombre small { color: var(--texto-dark-2); }
-.nav--solida .nav__nombre { color: var(--verde-enersac); }
-.nav--solida .nav__nombre small { color: var(--piedra); }
+/* Sobre fondo oscuro se usa la versión monocroma blanca del lockup (Manual, sección 2.4) */
+.nav--oscura .nav__lockup { filter: brightness(0) invert(1); }
+.nav--solida .nav__lockup { filter: none; }
 
 .nav__links {
   display: none;
@@ -311,8 +323,8 @@ p { max-width: 65ch; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to top, rgba(11, 31, 18, 0.92) 0%, rgba(11, 31, 18, 0.42) 45%, rgba(11, 31, 18, 0.15) 100%),
-    linear-gradient(100deg, rgba(11, 31, 18, 0.65) 0%, rgba(11, 31, 18, 0.08) 60%);
+    linear-gradient(to top, rgba(27, 48, 15, 0.92) 0%, rgba(27, 48, 15, 0.42) 45%, rgba(27, 48, 15, 0.15) 100%),
+    linear-gradient(100deg, rgba(27, 48, 15, 0.65) 0%, rgba(27, 48, 15, 0.08) 60%);
 }
 .heroe__contenido {
   position: relative;
@@ -322,12 +334,13 @@ p { max-width: 65ch; }
 }
 .heroe h1 {
   color: #fff;
-  font-size: clamp(2.35rem, 6.2vw, 4.6rem);
-  font-weight: 900;
-  font-stretch: 118%;
+  font-family: var(--f-titulos);
+  font-size: clamp(3.1rem, 8vw, 6.2rem);
+  font-weight: 400;
   text-transform: uppercase;
-  line-height: 0.98;
-  max-width: 15ch;
+  letter-spacing: 0.015em;
+  line-height: 0.92;
+  max-width: 18ch;
 }
 .heroe h1 .acento { color: var(--lima); }
 .heroe__bajada {
@@ -356,7 +369,7 @@ p { max-width: 65ch; }
   gap: 0.75rem 2.5rem;
 }
 .franja__titulo {
-  color: var(--lima);
+  color: var(--verde-claro);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -402,9 +415,10 @@ p { max-width: 65ch; }
 .servicio--foto:hover img { transform: scale(1.04); }
 .servicio__cuerpo { padding: 1.75rem; }
 .servicio__cuerpo h3, .servicio--panel h3 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  font-stretch: 110%;
+  font-family: var(--f-titulos);
+  font-size: 1.65rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 .servicio__cuerpo p { margin-top: 0.6rem; color: var(--piedra); font-size: 0.95rem; }
@@ -434,7 +448,7 @@ p { max-width: 65ch; }
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--lima);
+  color: var(--verde-claro);
 }
 .obras .titulo-seccion { color: #fff; margin-top: 0.75rem; }
 .obras .intro-seccion { color: var(--texto-dark-2); }
@@ -464,8 +478,8 @@ p { max-width: 65ch; }
 .obra:hover img { transform: scale(1.04); }
 .obra--alta img { object-position: center 20%; }
 .obra__pie { padding-top: 1rem; }
-.obra__meta { color: var(--lima); }
-.obra__pie h3 { color: #fff; font-size: 1.25rem; font-weight: 800; margin-top: 0.35rem; }
+.obra__pie .obra__meta { color: var(--verde-claro); }
+.obra__pie h3 { color: #fff; font-family: var(--f-titulos); font-size: 1.6rem; font-weight: 400; letter-spacing: 0.03em; margin-top: 0.35rem; }
 .obra__pie p { color: var(--texto-dark-2); font-size: 0.92rem; margin-top: 0.35rem; }
 
 /* ---------- Seguridad ---------- */
@@ -521,9 +535,10 @@ p { max-width: 65ch; }
   gap: 1.75rem;
 }
 .banda h2 {
-  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
-  font-weight: 800;
-  font-stretch: 112%;
+  font-family: var(--f-titulos);
+  font-size: clamp(2.1rem, 3.8vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
 }
 .banda p { margin-top: 0.5rem; color: var(--texto-dark-2); }
@@ -622,9 +637,11 @@ p { max-width: 65ch; }
 }
 .cabecera-pagina h1 {
   color: #fff;
-  font-size: clamp(2.1rem, 4.5vw, 3.4rem);
-  font-weight: 900;
-  font-stretch: 115%;
+  font-family: var(--f-titulos);
+  font-size: clamp(2.8rem, 5.2vw, 4.4rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
   text-transform: uppercase;
   margin-top: 0.75rem;
 }
@@ -668,7 +685,7 @@ p { max-width: 65ch; }
 .tarjeta img { width: 100%; height: auto; transition: transform 0.5s ease; }
 .tarjeta:hover img { transform: scale(1.03); }
 .tarjeta figcaption { padding: 0.9rem 1rem 1.1rem; }
-.tarjeta figcaption .mono { color: var(--lima); }
+.tarjeta figcaption .mono { color: var(--verde-claro); }
 .tarjeta figcaption strong {
   display: block;
   font-family: var(--f-display);
@@ -703,7 +720,7 @@ p { max-width: 65ch; }
   border-radius: var(--radio);
 }
 .lightbox__pie { margin-top: 1.1rem; text-align: center; max-width: 40rem; }
-.lightbox__pie .mono { color: var(--lima); }
+.lightbox__pie .mono { color: var(--verde-claro); }
 .lightbox__pie strong {
   display: block;
   font-family: var(--f-display);
