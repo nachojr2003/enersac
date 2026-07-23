@@ -60,12 +60,12 @@
 
 /* ---------- Tokens ---------- */
 :root {
-  /* Paleta oficial (Manual de Marca, sección 2.4):
-     #01662A verde principal · #D3E20F amarillo lima · #95B925 verde claro · #2B4C1A verde profundo */
-  --verde-selva: #1B300F;
-  --verde-selva-2: #2B4C1A;
+  /* Paleta derivada del Manual de Marca (sección 2.4).
+     Acento único en pantalla: #D3E20F (amarillo lima). El verde #01662A manda en fondos claros.
+     Los oscuros son versiones profundas del verde de marca; el texto sobre oscuro es neutro (sin tinte oliva). */
+  --verde-selva: #0F1F0B;
+  --verde-selva-2: #182D11;
   --verde-enersac: #01662A;
-  --verde-claro: #95B925;
   --lima: #D3E20F;
   --lima-hover: #E3EF3F;
   --lima-press: #B9C70D;
@@ -76,8 +76,8 @@
   --piedra: #535D56;
   --linea: #D6D4CA;
   --linea-dark: rgba(255, 255, 255, 0.12);
-  --texto-dark: #EAF0E4;
-  --texto-dark-2: #A9BC97;
+  --texto-dark: #F1F4EC;
+  --texto-dark-2: #AEB4A8;
 
   /* Tipografía: Recepts (marca) · Bebas Neue (titulares) · Archivo (UI) · Manrope (texto) · Plex Mono (datos) */
   --f-marca: 'Recepts', 'Archivo', system-ui, sans-serif;
@@ -318,13 +318,19 @@ p { max-width: 65ch; }
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
+  transform-origin: 50% 35%;
+  animation: kenburns 24s ease-out both;
+}
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.07); }
 }
 .heroe__velo {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to top, rgba(27, 48, 15, 0.92) 0%, rgba(27, 48, 15, 0.42) 45%, rgba(27, 48, 15, 0.15) 100%),
-    linear-gradient(100deg, rgba(27, 48, 15, 0.65) 0%, rgba(27, 48, 15, 0.08) 60%);
+    linear-gradient(to top, rgba(15, 31, 11, 0.92) 0%, rgba(15, 31, 11, 0.42) 45%, rgba(15, 31, 11, 0.15) 100%),
+    linear-gradient(100deg, rgba(15, 31, 11, 0.65) 0%, rgba(15, 31, 11, 0.08) 60%);
 }
 .heroe__contenido {
   position: relative;
@@ -369,7 +375,7 @@ p { max-width: 65ch; }
   gap: 0.75rem 2.5rem;
 }
 .franja__titulo {
-  color: var(--verde-claro);
+  color: var(--lima);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -448,7 +454,7 @@ p { max-width: 65ch; }
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--verde-claro);
+  color: var(--lima);
 }
 .obras .titulo-seccion { color: #fff; margin-top: 0.75rem; }
 .obras .intro-seccion { color: var(--texto-dark-2); }
@@ -460,6 +466,13 @@ p { max-width: 65ch; }
   margin-top: 3rem;
 }
 @media (min-width: 700px) { .obras__grilla { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .obras__grilla { grid-template-columns: repeat(3, 1fr); } }
+
+/* Obra destacada: panorámica a todo el ancho, abre la bitácora con jerarquía */
+.obra--destacada { grid-column: 1 / -1; }
+.obra.obra--destacada figure { aspect-ratio: 21 / 9; }
+.obra.obra--destacada img { object-position: center 42%; }
+@media (max-width: 699px) { .obra.obra--destacada figure { aspect-ratio: 16 / 10; } }
 
 .obra { text-decoration: none; display: block; }
 .obra figure {
@@ -478,7 +491,7 @@ p { max-width: 65ch; }
 .obra:hover img { transform: scale(1.04); }
 .obra--alta img { object-position: center 20%; }
 .obra__pie { padding-top: 1rem; }
-.obra__pie .obra__meta { color: var(--verde-claro); }
+.obra__pie .obra__meta { color: var(--lima); }
 .obra__pie h3 { color: #fff; font-family: var(--f-titulos); font-size: 1.6rem; font-weight: 400; letter-spacing: 0.03em; margin-top: 0.35rem; }
 .obra__pie p { color: var(--texto-dark-2); font-size: 0.92rem; margin-top: 0.35rem; }
 
@@ -685,12 +698,13 @@ p { max-width: 65ch; }
 .tarjeta img { width: 100%; height: auto; transition: transform 0.5s ease; }
 .tarjeta:hover img { transform: scale(1.03); }
 .tarjeta figcaption { padding: 0.9rem 1rem 1.1rem; }
-.tarjeta figcaption .mono { color: var(--verde-claro); }
+.tarjeta figcaption .mono { color: var(--lima); }
 .tarjeta figcaption strong {
   display: block;
-  font-family: var(--f-display);
-  font-weight: 700;
-  font-size: 0.98rem;
+  font-family: var(--f-titulos);
+  font-weight: 400;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
   color: #fff;
   margin-top: 0.3rem;
 }
@@ -710,7 +724,16 @@ p { max-width: 65ch; }
   background: rgba(7, 16, 10, 0.96);
   padding: 2rem clamp(1rem, 6vw, 5rem);
 }
-.lightbox.abierto { display: flex; }
+.lightbox.abierto { display: flex; animation: lb-entrada 0.25s ease; }
+@keyframes lb-entrada {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.lightbox.abierto img { animation: lb-foto 0.3s ease; }
+@keyframes lb-foto {
+  from { transform: scale(0.97); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 .lightbox img {
   max-width: min(92vw, 1100px);
   max-height: 72vh;
@@ -720,7 +743,7 @@ p { max-width: 65ch; }
   border-radius: var(--radio);
 }
 .lightbox__pie { margin-top: 1.1rem; text-align: center; max-width: 40rem; }
-.lightbox__pie .mono { color: var(--verde-claro); }
+.lightbox__pie .mono { color: var(--lima); }
 .lightbox__pie strong {
   display: block;
   font-family: var(--f-display);
@@ -765,4 +788,5 @@ p { max-width: 65ch; }
   }
   .revelar { opacity: 1; transform: none; }
   .servicio--foto:hover img, .obra:hover img { transform: none; }
+  .heroe__foto { animation: none; }
 }
