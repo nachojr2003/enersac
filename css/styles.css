@@ -60,15 +60,15 @@
 
 /* ---------- Tokens ---------- */
 :root {
-  /* Paleta derivada del Manual de Marca (sección 2.4).
-     Acento único en pantalla: #D3E20F (amarillo lima). El verde #01662A manda en fondos claros.
-     Los oscuros son versiones profundas del verde de marca; el texto sobre oscuro es neutro (sin tinte oliva). */
-  --verde-selva: #0F1F0B;
-  --verde-selva-2: #182D11;
+  /* Paleta derivada del Manual de Marca (sección 2.4), ejecución tipo constructora profesional:
+     neutros + fotografía + UN acento sobrio, el verde ENERSAC #01662A (botones) con su tinte
+     claro --verde-luz para elementos pequeños sobre fondo oscuro. Sin colores ácidos en la UI. */
+  --verde-selva: #0D1811;
+  --verde-selva-2: #15241B;
   --verde-enersac: #01662A;
-  --lima: #D3E20F;
-  --lima-hover: #E3EF3F;
-  --lima-press: #B9C70D;
+  --verde-luz: #4DB878;
+  --verde-boton-hover: #0B7A38;
+  --verde-boton-press: #014E20;
   --concreto: #EDECE7;
   --concreto-2: #E3E1D8;
   --blanco: #F9F9F6;
@@ -97,10 +97,10 @@
   --z-nav: 50;
   --z-toast: 60;
 
-  /* Motivo de rayos del logo (abanico desde abajo, CSS puro) */
+  /* Motivo de rayos del logo (abanico desde abajo, CSS puro, textura neutra) */
   --rayos: repeating-conic-gradient(
     from -52deg at 50% 130%,
-    rgba(211, 226, 15, 0.09) 0deg 0.8deg,
+    rgba(255, 255, 255, 0.05) 0deg 0.8deg,
     transparent 0.8deg 7deg
   );
 }
@@ -129,7 +129,7 @@ h1, h2, h3, h4 {
 p { max-width: 65ch; }
 
 :focus-visible {
-  outline: 3px solid var(--lima);
+  outline: 3px solid var(--verde-luz);
   outline-offset: 2px;
 }
 
@@ -198,16 +198,16 @@ p { max-width: 65ch; }
 .btn:active { transform: translateY(1px); }
 .btn svg { width: 1.1em; height: 1.1em; flex: none; }
 
-.btn--primario { background: var(--lima); color: var(--tinta); }
-.btn--primario:hover { background: var(--lima-hover); }
-.btn--primario:active { background: var(--lima-press); }
+.btn--primario { background: var(--verde-enersac); color: #fff; }
+.btn--primario:hover { background: var(--verde-boton-hover); }
+.btn--primario:active { background: var(--verde-boton-press); }
 
 .btn--contorno {
   background: transparent;
   color: var(--texto-dark);
   border: 2px solid rgba(255, 255, 255, 0.35);
 }
-.btn--contorno:hover { border-color: var(--lima); color: #fff; }
+.btn--contorno:hover { border-color: var(--verde-luz); color: #fff; }
 
 .btn--bloque { width: 100%; }
 
@@ -257,7 +257,7 @@ p { max-width: 65ch; }
   color: var(--texto-dark);
   transition: color 0.2s ease;
 }
-.nav__link:hover { color: var(--lima); }
+.nav__link:hover { color: var(--verde-luz); }
 .nav--solida .nav__link { color: var(--tinta); }
 .nav--solida .nav__link:hover { color: var(--verde-enersac); }
 .nav__cta { padding: 0.65rem 1.25rem; font-size: 0.875rem; }
@@ -270,8 +270,8 @@ p { max-width: 65ch; }
   height: 44px;
   border: 0;
   border-radius: var(--radio);
-  background: var(--lima);
-  color: var(--tinta);
+  background: var(--verde-enersac);
+  color: #fff;
   cursor: pointer;
 }
 .nav__toggle svg { width: 22px; height: 22px; }
@@ -294,7 +294,7 @@ p { max-width: 65ch; }
   border-bottom: 1px solid var(--linea-dark);
 }
 .nav__movil a:last-child { border-bottom: 0; }
-.nav__movil a:hover { color: var(--lima); }
+.nav__movil a:hover { color: var(--verde-luz); }
 
 @media (min-width: 1024px) {
   .nav__links { display: flex; }
@@ -348,7 +348,7 @@ p { max-width: 65ch; }
   line-height: 0.92;
   max-width: 18ch;
 }
-.heroe h1 .acento { color: var(--lima); }
+.heroe h1 .acento { color: var(--verde-luz); }
 .heroe__bajada {
   margin-top: 1.4rem;
   max-width: 34rem;
@@ -375,7 +375,7 @@ p { max-width: 65ch; }
   gap: 0.75rem 2.5rem;
 }
 .franja__titulo {
-  color: var(--lima);
+  color: var(--verde-luz);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -439,7 +439,7 @@ p { max-width: 65ch; }
 .servicio--panel svg {
   width: 34px;
   height: 34px;
-  color: var(--lima);
+  color: var(--verde-luz);
   margin-bottom: auto;
 }
 .servicio--panel h3 { color: #fff; margin-top: 2.5rem; }
@@ -454,7 +454,7 @@ p { max-width: 65ch; }
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--lima);
+  color: var(--verde-luz);
 }
 .obras .titulo-seccion { color: #fff; margin-top: 0.75rem; }
 .obras .intro-seccion { color: var(--texto-dark-2); }
@@ -491,7 +491,7 @@ p { max-width: 65ch; }
 .obra:hover img { transform: scale(1.04); }
 .obra--alta img { object-position: center 20%; }
 .obra__pie { padding-top: 1rem; }
-.obra__pie .obra__meta { color: var(--lima); }
+.obra__pie .obra__meta { color: var(--verde-luz); }
 .obra__pie h3 { color: #fff; font-family: var(--f-titulos); font-size: 1.6rem; font-weight: 400; letter-spacing: 0.03em; margin-top: 0.35rem; }
 .obra__pie p { color: var(--texto-dark-2); font-size: 0.92rem; margin-top: 0.35rem; }
 
@@ -586,7 +586,7 @@ p { max-width: 65ch; }
 }
 .campo input::placeholder, .campo textarea::placeholder { color: #7A776C; }
 .campo input:focus, .campo select:focus, .campo textarea:focus {
-  outline: 3px solid rgba(141, 198, 63, 0.45);
+  outline: 3px solid rgba(77, 184, 120, 0.45);
   outline-offset: 0;
   border-color: var(--verde-enersac);
 }
@@ -642,7 +642,7 @@ p { max-width: 65ch; }
 }
 .nav--panel .nav__nombre { color: #fff; }
 .nav--panel .nav__nombre small { color: var(--texto-dark-2); }
-.nav__link--activo { color: var(--lima); }
+.nav__link--activo { color: var(--verde-luz); }
 
 .cabecera-pagina {
   background: var(--verde-selva) var(--rayos);
@@ -678,8 +678,8 @@ p { max-width: 65ch; }
   cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
-.filtro:hover { border-color: var(--lima); color: #fff; }
-.filtro.activo { background: var(--lima); border-color: var(--lima); color: var(--tinta); font-weight: 600; }
+.filtro:hover { border-color: var(--verde-luz); color: #fff; }
+.filtro.activo { background: var(--verde-enersac); border-color: var(--verde-enersac); color: #fff; font-weight: 600; }
 
 .galeria { padding-bottom: var(--seccion-y); }
 .galeria__grilla { columns: 1; column-gap: 1.25rem; }
@@ -698,7 +698,7 @@ p { max-width: 65ch; }
 .tarjeta img { width: 100%; height: auto; transition: transform 0.5s ease; }
 .tarjeta:hover img { transform: scale(1.03); }
 .tarjeta figcaption { padding: 0.9rem 1rem 1.1rem; }
-.tarjeta figcaption .mono { color: var(--lima); }
+.tarjeta figcaption .mono { color: var(--verde-luz); }
 .tarjeta figcaption strong {
   display: block;
   font-family: var(--f-titulos);
@@ -743,7 +743,7 @@ p { max-width: 65ch; }
   border-radius: var(--radio);
 }
 .lightbox__pie { margin-top: 1.1rem; text-align: center; max-width: 40rem; }
-.lightbox__pie .mono { color: var(--lima); }
+.lightbox__pie .mono { color: var(--verde-luz); }
 .lightbox__pie strong {
   display: block;
   font-family: var(--f-display);
@@ -765,7 +765,7 @@ p { max-width: 65ch; }
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
-.lightbox__btn:hover { background: var(--lima); color: var(--tinta); }
+.lightbox__btn:hover { background: var(--verde-enersac); color: #fff; }
 .lightbox__btn svg { width: 22px; height: 22px; }
 .lightbox__cerrar { top: 1.25rem; right: 1.25rem; }
 .lightbox__ant { left: 1rem; top: 50%; transform: translateY(-50%); }
