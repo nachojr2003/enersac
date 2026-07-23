@@ -1,0 +1,10 @@
+.DS_Store
+.env*
+.claude.json
+node_modules/
+.wrangler/
+
+# Archivo de fotos originales y respaldos locales (no van al deploy)
+Fotos/
+_backup/
+.claude/
